@@ -1,0 +1,19 @@
+GCC := g++ -std=c++17
+
+melody.cpp: generator
+	./generator
+
+build: generator
+
+
+generator : generator.o note_player_pc.o rtttl_player.o melody.hpp
+	$(GCC) generator.o note_player_pc.o rtttl_player.o -o generator
+
+generator.o : generator.cpp fur_elise.hpp rtttl_player.hpp note_player_pc.hpp melody.hpp
+	$(GCC) -c generator.cpp -o generator.o
+
+note_player_pc.o : note_player_pc.cpp note_player_pc.hpp note_player.hpp note.hpp
+	$(GCC) -c note_player_pc.cpp -o note_player_pc.o
+
+rtttl_player.o : rtttl_player.cpp rtttl_player.hpp note_player.hpp note.hpp
+	$(GCC) -c rtttl_player.cpp -o rtttl_player.o
